@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "vercello.tweets;tweets";
+
+service Tweets {
+  rpc CreateTweet(CreateTweetRequest) returns (CreateTweetResponse);
+  rpc GetTweet(GetTweetRequest) returns (Tweet);
+  rpc UpdateTweet(UpdateTweetRequest) returns (Tweet);
+  rpc DeleteTweet(DeleteTweetRequest) returns (DeleteTweetResponse);
+}
+
+message Tweet {
+  string user_id = 1;
+  string tweet_id = 2;
+  string text = 3;
+  optional string image = 4;
+
+}
+
+message CreateTweetRequest {
+  string user_id = 1;
+  string text = 2;
+  optional string image = 3;
+}
+
+message CreateTweetResponse {
+  string tweet_id = 1;
+}
+
+message GetTweetRequest {
+  string tweet_id = 1;
+}
+
+message UpdateTweetRequest {
+  string tweet_id = 2;
+  string text = 3;
+  optional string image = 4;
+}
+
+message DeleteTweetRequest {
+  string tweet_id = 2;
+}
+
+message DeleteTweetResponse {}
