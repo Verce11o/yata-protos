@@ -11,18 +11,23 @@ service Tweets {
   rpc DeleteTweet(DeleteTweetRequest) returns (DeleteTweetResponse);
 }
 
+message Image {
+  bytes chunk = 1;
+  string content_type = 2;
+}
+
 message Tweet {
   string user_id = 1;
   string tweet_id = 2;
   string text = 3;
-  optional string image = 4;
+  optional Image image = 4;
 
 }
 
 message CreateTweetRequest {
   string user_id = 1;
   string text = 2;
-  optional string image = 3;
+  optional Image image = 3;
 }
 
 message CreateTweetResponse {
@@ -36,7 +41,7 @@ message GetTweetRequest {
 message UpdateTweetRequest {
   string tweet_id = 2;
   string text = 3;
-  optional string image = 4;
+  optional Image image = 4;
 }
 
 message DeleteTweetRequest {
