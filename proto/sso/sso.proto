@@ -7,7 +7,7 @@ option go_package = "vercello.sso;sso";
 service Auth {
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc GetUserByID(GetUserRequest) returns (GetUserResponse);
 }
 
 message RegisterRequest {
