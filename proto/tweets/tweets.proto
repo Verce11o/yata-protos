@@ -47,6 +47,7 @@ message UpdateTweetRequest {
 }
 
 message DeleteTweetRequest {
+  string user_id = 1;
   string tweet_id = 2;
 }
 
