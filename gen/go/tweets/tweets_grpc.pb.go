@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Tweets_CreateTweet_FullMethodName = "/auth.Tweets/CreateTweet"
-	Tweets_GetTweet_FullMethodName    = "/auth.Tweets/GetTweet"
-	Tweets_UpdateTweet_FullMethodName = "/auth.Tweets/UpdateTweet"
-	Tweets_DeleteTweet_FullMethodName = "/auth.Tweets/DeleteTweet"
+	Tweets_CreateTweet_FullMethodName = "/tweets.Tweets/CreateTweet"
+	Tweets_GetTweet_FullMethodName    = "/tweets.Tweets/GetTweet"
+	Tweets_UpdateTweet_FullMethodName = "/tweets.Tweets/UpdateTweet"
+	Tweets_DeleteTweet_FullMethodName = "/tweets.Tweets/DeleteTweet"
 )
 
 // TweetsClient is the client API for Tweets service.
@@ -195,7 +195,7 @@ func _Tweets_DeleteTweet_Handler(srv interface{}, ctx context.Context, dec func(
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Tweets_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.Tweets",
+	ServiceName: "tweets.Tweets",
 	HandlerType: (*TweetsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
