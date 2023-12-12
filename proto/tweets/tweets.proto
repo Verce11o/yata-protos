@@ -40,7 +40,9 @@ message GetTweetRequest {
   string tweet_id = 1;
 }
 
-message GetAllTweetsRequest {}
+message GetAllTweetsRequest {
+  string cursor = 1;
+}
 
 message GetAllTweetsResponse {
   repeated Tweet tweets = 1;
