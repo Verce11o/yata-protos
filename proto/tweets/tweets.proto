@@ -46,6 +46,7 @@ message GetAllTweetsRequest {
 
 message GetAllTweetsResponse {
   repeated Tweet tweets = 1;
+  string cursor = 2;
 }
 
 message UpdateTweetRequest {
