@@ -7,6 +7,7 @@ option go_package = "vercello.tweets;tweets";
 service Tweets {
   rpc CreateTweet(CreateTweetRequest) returns (CreateTweetResponse);
   rpc GetTweet(GetTweetRequest) returns (Tweet);
+  rpc GetAllTweets(GetAllTweetsRequest) returns (GetAllTweetsResponse);
   rpc UpdateTweet(UpdateTweetRequest) returns (Tweet);
   rpc DeleteTweet(DeleteTweetRequest) returns (DeleteTweetResponse);
 }
@@ -37,6 +38,12 @@ message CreateTweetResponse {
 
 message GetTweetRequest {
   string tweet_id = 1;
+}
+
+message GetAllTweetsRequest {}
+
+message GetAllTweetsResponse {
+  repeated Tweet tweets = 1;
 }
 
 message UpdateTweetRequest {
