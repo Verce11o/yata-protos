@@ -22,7 +22,7 @@ message Tweet {
   string user_id = 1;
   string tweet_id = 2;
   string text = 3;
-  optional Image image = 4;
+  optional string image_url = 4;
 
 }
 
