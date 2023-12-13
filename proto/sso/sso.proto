@@ -23,6 +23,7 @@ message RegisterResponse {
 
 message VerifyRequest {
   string code = 1;
+  string user_id = 2;
 }
 
 message VerifyResponse {}
