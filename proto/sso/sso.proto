@@ -28,7 +28,6 @@ message VerifyRequest {
 
 message CheckVerifyRequest {
   string code = 1;
-  string user_id = 2;
 }
 
 message CheckVerifyResponse {}
