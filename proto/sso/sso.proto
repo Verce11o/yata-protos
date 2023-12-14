@@ -7,6 +7,7 @@ option go_package = "vercello.sso;sso";
 service Auth {
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc VerifyUser(VerifyRequest) returns (VerifyResponse);
+  rpc CheckVerify(CheckVerifyRequest) returns (CheckVerifyResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc GetUserByID(GetUserRequest) returns (GetUserResponse);
 }
@@ -22,9 +23,15 @@ message RegisterResponse {
 }
 
 message VerifyRequest {
+  string user_id = 1;
+}
+
+message CheckVerifyRequest {
   string code = 1;
   string user_id = 2;
 }
+
+message CheckVerifyResponse {}
 
 message VerifyResponse {}
 

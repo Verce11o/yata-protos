@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Auth_Register_FullMethodName    = "/auth.Auth/Register"
 	Auth_VerifyUser_FullMethodName  = "/auth.Auth/VerifyUser"
+	Auth_CheckVerify_FullMethodName = "/auth.Auth/CheckVerify"
 	Auth_Login_FullMethodName       = "/auth.Auth/Login"
 	Auth_GetUserByID_FullMethodName = "/auth.Auth/GetUserByID"
 )
@@ -31,6 +32,7 @@ const (
 type AuthClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	VerifyUser(ctx context.Context, in *VerifyRequest, opts ...grpc.CallOption) (*VerifyResponse, error)
+	CheckVerify(ctx context.Context, in *CheckVerifyRequest, opts ...grpc.CallOption) (*CheckVerifyResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	GetUserByID(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 }
@@ -61,6 +63,15 @@ func (c *authClient) VerifyUser(ctx context.Context, in *VerifyRequest, opts ...
 	return out, nil
 }
 
+func (c *authClient) CheckVerify(ctx context.Context, in *CheckVerifyRequest, opts ...grpc.CallOption) (*CheckVerifyResponse, error) {
+	out := new(CheckVerifyResponse)
+	err := c.cc.Invoke(ctx, Auth_CheckVerify_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *authClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
 	err := c.cc.Invoke(ctx, Auth_Login_FullMethodName, in, out, opts...)
@@ -85,6 +96,7 @@ func (c *authClient) GetUserByID(ctx context.Context, in *GetUserRequest, opts .
 type AuthServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	VerifyUser(context.Context, *VerifyRequest) (*VerifyResponse, error)
+	CheckVerify(context.Context, *CheckVerifyRequest) (*CheckVerifyResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	GetUserByID(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	mustEmbedUnimplementedAuthServer()
@@ -99,6 +111,9 @@ func (UnimplementedAuthServer) Register(context.Context, *RegisterRequest) (*Reg
 }
 func (UnimplementedAuthServer) VerifyUser(context.Context, *VerifyRequest) (*VerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyUser not implemented")
+}
+func (UnimplementedAuthServer) CheckVerify(context.Context, *CheckVerifyRequest) (*CheckVerifyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckVerify not implemented")
 }
 func (UnimplementedAuthServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -155,6 +170,24 @@ func _Auth_VerifyUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_CheckVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckVerifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CheckVerify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CheckVerify_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CheckVerify(ctx, req.(*CheckVerifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Auth_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
@@ -205,6 +238,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyUser",
 			Handler:    _Auth_VerifyUser_Handler,
+		},
+		{
+			MethodName: "CheckVerify",
+			Handler:    _Auth_CheckVerify_Handler,
 		},
 		{
 			MethodName: "Login",
