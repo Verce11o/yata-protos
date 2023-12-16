@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package comments;
+
+option go_package = "vercello.comments;comments";
+
+service Comments {
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+  rpc GetComment(GetCommentRequest) returns (Comment);
+  rpc GetAllComments(GetAllCommentsRequest) returns (GetAllCommentsResponse);
+  rpc UpdateComment(UpdateCommentRequest) returns (Comment);
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+}
+
+message Image {
+  bytes chunk = 1;
+  string content_type = 2;
+  string name = 3;
+}
+
+message Comment {
+  string comment_id = 1;
+  string user_id = 2;
+  string tweet_id = 3;
+  string text = 4;
+  optional string image_url = 5;
+}
+
+message CreateCommentRequest {
+  string user_id = 1;
+  string tweet_id = 2;
+  string text = 3;
+  optional Image image = 4;
+}
+
+message CreateCommentResponse {
+  string comment_id = 1;
+}
+
+message GetCommentRequest {
+  string comment_id = 1;
+}
+
+message GetAllCommentsRequest {
+  string cursor = 1;
+}
+
+message GetAllCommentsResponse {
+  repeated Comment comments = 1;
+  string cursor = 2;
+}
+
+message UpdateCommentRequest {
+  string comment_id = 1;
+  string tweet_id = 2;
+  string user_id = 3;
+  string text = 4;
+  optional Image image = 5;
+}
+
+message DeleteCommentRequest {
+  string comment_id = 1;
+  string user_id = 2;
+}
+
+message DeleteCommentResponse {}
+
+
