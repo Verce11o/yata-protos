@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Comments_CreateComment_FullMethodName  = "/comments.Comments/CreateComment"
-	Comments_GetComment_FullMethodName     = "/comments.Comments/GetComment"
-	Comments_GetAllComments_FullMethodName = "/comments.Comments/GetAllComments"
-	Comments_UpdateComment_FullMethodName  = "/comments.Comments/UpdateComment"
-	Comments_DeleteComment_FullMethodName  = "/comments.Comments/DeleteComment"
+	Comments_CreateComment_FullMethodName       = "/comments.Comments/CreateComment"
+	Comments_GetComment_FullMethodName          = "/comments.Comments/GetComment"
+	Comments_GetAllTweetComments_FullMethodName = "/comments.Comments/GetAllTweetComments"
+	Comments_UpdateComment_FullMethodName       = "/comments.Comments/UpdateComment"
+	Comments_DeleteComment_FullMethodName       = "/comments.Comments/DeleteComment"
 )
 
 // CommentsClient is the client API for Comments service.
@@ -32,7 +32,7 @@ const (
 type CommentsClient interface {
 	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 	GetComment(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*Comment, error)
-	GetAllComments(ctx context.Context, in *GetAllCommentsRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error)
+	GetAllTweetComments(ctx context.Context, in *GetAllTweetCommentsRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error)
 	UpdateComment(ctx context.Context, in *UpdateCommentRequest, opts ...grpc.CallOption) (*Comment, error)
 	DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*DeleteCommentResponse, error)
 }
@@ -63,9 +63,9 @@ func (c *commentsClient) GetComment(ctx context.Context, in *GetCommentRequest, 
 	return out, nil
 }
 
-func (c *commentsClient) GetAllComments(ctx context.Context, in *GetAllCommentsRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error) {
+func (c *commentsClient) GetAllTweetComments(ctx context.Context, in *GetAllTweetCommentsRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error) {
 	out := new(GetAllCommentsResponse)
-	err := c.cc.Invoke(ctx, Comments_GetAllComments_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Comments_GetAllTweetComments_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *commentsClient) DeleteComment(ctx context.Context, in *DeleteCommentReq
 type CommentsServer interface {
 	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
 	GetComment(context.Context, *GetCommentRequest) (*Comment, error)
-	GetAllComments(context.Context, *GetAllCommentsRequest) (*GetAllCommentsResponse, error)
+	GetAllTweetComments(context.Context, *GetAllTweetCommentsRequest) (*GetAllCommentsResponse, error)
 	UpdateComment(context.Context, *UpdateCommentRequest) (*Comment, error)
 	DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error)
 	mustEmbedUnimplementedCommentsServer()
@@ -112,8 +112,8 @@ func (UnimplementedCommentsServer) CreateComment(context.Context, *CreateComment
 func (UnimplementedCommentsServer) GetComment(context.Context, *GetCommentRequest) (*Comment, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetComment not implemented")
 }
-func (UnimplementedCommentsServer) GetAllComments(context.Context, *GetAllCommentsRequest) (*GetAllCommentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllComments not implemented")
+func (UnimplementedCommentsServer) GetAllTweetComments(context.Context, *GetAllTweetCommentsRequest) (*GetAllCommentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllTweetComments not implemented")
 }
 func (UnimplementedCommentsServer) UpdateComment(context.Context, *UpdateCommentRequest) (*Comment, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateComment not implemented")
@@ -170,20 +170,20 @@ func _Comments_GetComment_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Comments_GetAllComments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAllCommentsRequest)
+func _Comments_GetAllTweetComments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllTweetCommentsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CommentsServer).GetAllComments(ctx, in)
+		return srv.(CommentsServer).GetAllTweetComments(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Comments_GetAllComments_FullMethodName,
+		FullMethod: Comments_GetAllTweetComments_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommentsServer).GetAllComments(ctx, req.(*GetAllCommentsRequest))
+		return srv.(CommentsServer).GetAllTweetComments(ctx, req.(*GetAllTweetCommentsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -240,8 +240,8 @@ var Comments_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Comments_GetComment_Handler,
 		},
 		{
-			MethodName: "GetAllComments",
-			Handler:    _Comments_GetAllComments_Handler,
+			MethodName: "GetAllTweetComments",
+			Handler:    _Comments_GetAllTweetComments_Handler,
 		},
 		{
 			MethodName: "UpdateComment",

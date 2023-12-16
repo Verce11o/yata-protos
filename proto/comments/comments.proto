@@ -7,7 +7,7 @@ option go_package = "vercello.comments;comments";
 service Comments {
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
   rpc GetComment(GetCommentRequest) returns (Comment);
-  rpc GetAllComments(GetAllCommentsRequest) returns (GetAllCommentsResponse);
+  rpc GetAllTweetComments(GetAllTweetCommentsRequest) returns (GetAllCommentsResponse);
   rpc UpdateComment(UpdateCommentRequest) returns (Comment);
   rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
 }
@@ -41,8 +41,9 @@ message GetCommentRequest {
   string comment_id = 1;
 }
 
-message GetAllCommentsRequest {
+message GetAllTweetCommentsRequest {
   string cursor = 1;
+  string tweet_id = 2;
 }
 
 message GetAllCommentsResponse {
