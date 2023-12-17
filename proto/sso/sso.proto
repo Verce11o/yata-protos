@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "google/protobuf/timestamp.proto";
 
 package auth;
 
@@ -51,7 +52,7 @@ message GetUserResponse {
   string user_id = 1;
   string username = 2;
   string email = 3;
-  string is_verified = 4;
-  string created_at = 5;
-  string updated_at = 6;
+  bool is_verified = 4;
+  google.protobuf.Timestamp  created_at = 5;
+  google.protobuf.Timestamp  updated_at = 6;
 }
