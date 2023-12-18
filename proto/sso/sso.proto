@@ -11,6 +11,8 @@ service Auth {
   rpc CheckVerify(CheckVerifyRequest) returns (CheckVerifyResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc GetUserByID(GetUserRequest) returns (GetUserResponse);
+  rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse);
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
 }
 
 message RegisterRequest {
@@ -34,6 +36,20 @@ message CheckVerifyRequest {
 message CheckVerifyResponse {}
 
 message VerifyResponse {}
+
+message ForgotPasswordRequest {
+  string user_id = 1;
+}
+
+message ForgotPasswordResponse {}
+
+message ResetPasswordRequest {
+  string code = 1;
+  string password = 2;
+  string passwordRe = 3;
+}
+
+message ResetPasswordResponse {}
 
 message LoginRequest {
   string email = 1;
