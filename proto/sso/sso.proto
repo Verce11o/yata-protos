@@ -12,6 +12,7 @@ service Auth {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc GetUserByID(GetUserRequest) returns (GetUserResponse);
   rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse);
+  rpc VerifyPassword(VerifyPasswordRequest) returns (VerifyPasswordResponse);
   rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
 }
 
@@ -43,6 +44,12 @@ message ForgotPasswordRequest {
 
 message ForgotPasswordResponse {}
 
+message VerifyPasswordRequest {
+  string code = 1;
+}
+
+message VerifyPasswordResponse {}
+
 message ResetPasswordRequest {
   string code = 1;
   string password = 2;
@@ -50,6 +57,8 @@ message ResetPasswordRequest {
 }
 
 message ResetPasswordResponse {}
+
+
 
 message LoginRequest {
   string email = 1;
