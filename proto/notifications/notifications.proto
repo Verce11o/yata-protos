@@ -18,7 +18,7 @@ message Notification {
   string user_id = 2;
   string sender_id = 3;
   bool read = 4;
-  google.protobuf.Timestamp license_expired_at = 5;
+  google.protobuf.Timestamp created_at = 5;
 }
 
 message GetNotificationsRequest {
