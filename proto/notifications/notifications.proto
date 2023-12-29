@@ -19,6 +19,7 @@ message Notification {
   string sender_id = 3;
   bool read = 4;
   google.protobuf.Timestamp created_at = 5;
+  string type = 6;
 }
 
 message GetNotificationsRequest {
