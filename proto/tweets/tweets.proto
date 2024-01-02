@@ -3,6 +3,7 @@ syntax = "proto3";
 package tweets;
 
 option go_package = "vercello.tweets;tweets";
+import "google/protobuf/timestamp.proto";
 
 service Tweets {
   rpc CreateTweet(CreateTweetRequest) returns (CreateTweetResponse);
@@ -22,7 +23,7 @@ message Tweet {
   string user_id = 1;
   string tweet_id = 2;
   string text = 3;
-
+  google.protobuf.Timestamp created_at = 4;
 }
 
 message CreateTweetRequest {
