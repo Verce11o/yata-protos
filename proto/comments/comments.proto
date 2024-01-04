@@ -3,6 +3,7 @@ syntax = "proto3";
 package comments;
 
 option go_package = "vercello.comments;comments";
+import "google/protobuf/timestamp.proto";
 
 service Comments {
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
@@ -24,6 +25,7 @@ message Comment {
   string tweet_id = 3;
   string text = 4;
   optional string image_url = 5;
+  google.protobuf.Timestamp created_at = 6;
 }
 
 message CreateCommentRequest {
