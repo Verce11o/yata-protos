@@ -24,8 +24,7 @@ message Comment {
   string user_id = 2;
   string tweet_id = 3;
   string text = 4;
-  optional string image_url = 5;
-  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp created_at = 5;
 }
 
 message CreateCommentRequest {
