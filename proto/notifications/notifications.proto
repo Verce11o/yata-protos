@@ -8,6 +8,7 @@ import "google/protobuf/timestamp.proto";
 service Notifications {
   rpc SubscribeToUser(SubscribeToUserRequest) returns (SubscribeToUserResponse);
   rpc UnSubscribeFromUser(UnSubscribeFromUserRequest) returns (UnSubscribeFromUserResponse);
+  rpc GetUserSubscriptions(GetUserSubscriptionsRequest) returns (GetUserSubscriptionsResponse);
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
   rpc MarkNotificationAsRead(MarkNotificationAsReadRequest) returns (MarkNotificationAsReadResponse);
   rpc ReadAllNotifications(ReadAllNotificationsRequest) returns (ReadAllNotificationsResponse);
@@ -56,3 +57,18 @@ message UnSubscribeFromUserRequest {
 }
 
 message UnSubscribeFromUserResponse {}
+
+message GetUserSubscriptionsRequest {
+  string user_id = 1;
+  string cursor = 2;
+}
+
+message Subscriber {
+  string user_id = 1;
+  string to_user_id = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message GetUserSubscriptionsResponse {
+  repeated Subscriber subscribers = 1;
+}

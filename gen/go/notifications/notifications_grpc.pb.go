@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Notifications_SubscribeToUser_FullMethodName        = "/notifications.Notifications/SubscribeToUser"
 	Notifications_UnSubscribeFromUser_FullMethodName    = "/notifications.Notifications/UnSubscribeFromUser"
+	Notifications_GetUserSubscriptions_FullMethodName   = "/notifications.Notifications/GetUserSubscriptions"
 	Notifications_GetNotifications_FullMethodName       = "/notifications.Notifications/GetNotifications"
 	Notifications_MarkNotificationAsRead_FullMethodName = "/notifications.Notifications/MarkNotificationAsRead"
 	Notifications_ReadAllNotifications_FullMethodName   = "/notifications.Notifications/ReadAllNotifications"
@@ -32,6 +33,7 @@ const (
 type NotificationsClient interface {
 	SubscribeToUser(ctx context.Context, in *SubscribeToUserRequest, opts ...grpc.CallOption) (*SubscribeToUserResponse, error)
 	UnSubscribeFromUser(ctx context.Context, in *UnSubscribeFromUserRequest, opts ...grpc.CallOption) (*UnSubscribeFromUserResponse, error)
+	GetUserSubscriptions(ctx context.Context, in *GetUserSubscriptionsRequest, opts ...grpc.CallOption) (*GetUserSubscriptionsResponse, error)
 	GetNotifications(ctx context.Context, in *GetNotificationsRequest, opts ...grpc.CallOption) (*GetNotificationsResponse, error)
 	MarkNotificationAsRead(ctx context.Context, in *MarkNotificationAsReadRequest, opts ...grpc.CallOption) (*MarkNotificationAsReadResponse, error)
 	ReadAllNotifications(ctx context.Context, in *ReadAllNotificationsRequest, opts ...grpc.CallOption) (*ReadAllNotificationsResponse, error)
@@ -57,6 +59,15 @@ func (c *notificationsClient) SubscribeToUser(ctx context.Context, in *Subscribe
 func (c *notificationsClient) UnSubscribeFromUser(ctx context.Context, in *UnSubscribeFromUserRequest, opts ...grpc.CallOption) (*UnSubscribeFromUserResponse, error) {
 	out := new(UnSubscribeFromUserResponse)
 	err := c.cc.Invoke(ctx, Notifications_UnSubscribeFromUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationsClient) GetUserSubscriptions(ctx context.Context, in *GetUserSubscriptionsRequest, opts ...grpc.CallOption) (*GetUserSubscriptionsResponse, error) {
+	out := new(GetUserSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, Notifications_GetUserSubscriptions_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,6 +107,7 @@ func (c *notificationsClient) ReadAllNotifications(ctx context.Context, in *Read
 type NotificationsServer interface {
 	SubscribeToUser(context.Context, *SubscribeToUserRequest) (*SubscribeToUserResponse, error)
 	UnSubscribeFromUser(context.Context, *UnSubscribeFromUserRequest) (*UnSubscribeFromUserResponse, error)
+	GetUserSubscriptions(context.Context, *GetUserSubscriptionsRequest) (*GetUserSubscriptionsResponse, error)
 	GetNotifications(context.Context, *GetNotificationsRequest) (*GetNotificationsResponse, error)
 	MarkNotificationAsRead(context.Context, *MarkNotificationAsReadRequest) (*MarkNotificationAsReadResponse, error)
 	ReadAllNotifications(context.Context, *ReadAllNotificationsRequest) (*ReadAllNotificationsResponse, error)
@@ -111,6 +123,9 @@ func (UnimplementedNotificationsServer) SubscribeToUser(context.Context, *Subscr
 }
 func (UnimplementedNotificationsServer) UnSubscribeFromUser(context.Context, *UnSubscribeFromUserRequest) (*UnSubscribeFromUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnSubscribeFromUser not implemented")
+}
+func (UnimplementedNotificationsServer) GetUserSubscriptions(context.Context, *GetUserSubscriptionsRequest) (*GetUserSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserSubscriptions not implemented")
 }
 func (UnimplementedNotificationsServer) GetNotifications(context.Context, *GetNotificationsRequest) (*GetNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNotifications not implemented")
@@ -166,6 +181,24 @@ func _Notifications_UnSubscribeFromUser_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(NotificationsServer).UnSubscribeFromUser(ctx, req.(*UnSubscribeFromUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Notifications_GetUserSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServer).GetUserSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Notifications_GetUserSubscriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServer).GetUserSubscriptions(ctx, req.(*GetUserSubscriptionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -238,6 +271,10 @@ var Notifications_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UnSubscribeFromUser",
 			Handler:    _Notifications_UnSubscribeFromUser_Handler,
+		},
+		{
+			MethodName: "GetUserSubscriptions",
+			Handler:    _Notifications_GetUserSubscriptions_Handler,
 		},
 		{
 			MethodName: "GetNotifications",
