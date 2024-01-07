@@ -71,4 +71,5 @@ message Subscriber {
 
 message GetUserSubscriptionsResponse {
   repeated Subscriber subscribers = 1;
+  string cursor = 2;
 }
